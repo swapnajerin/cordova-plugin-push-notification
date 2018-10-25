@@ -50,12 +50,37 @@
                 </intent-filter>
             </receiver>
             <service android:name="com.plugin.gcm.GCMIntentService" />
+            <service
+                android:name="com.plugin.gcm.StartTimer"
+                android:enabled="true"
+                android:exported="true" />
+          <receiver
+              android:name="com.plugin.gcm.AlarmReceiver"
+              android:enabled="true"
+              android:exported="true" >
+            <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" /> 
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+          </receiver>
+          <receiver
+              android:name="com.plugin.gcm.StartUpReceiver"
+              android:enabled="true"
+              android:exported="true" >
+            <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" /> 
+              <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+          </receiver>
         </config-file>
         <source-file src="src/android/libs/gcm.jar" target-dir="libs/" />
         <source-file src="src/android/com/plugin/gcm/CordovaGCMBroadcastReceiver.java" target-dir="src/com/plugin/gcm/" />
         <source-file src="src/android/com/plugin/gcm/GCMIntentService.java" target-dir="src/com/plugin/gcm/" />
         <source-file src="src/android/com/plugin/gcm/PushHandlerActivity.java" target-dir="src/com/plugin/gcm/" />
         <source-file src="src/android/com/plugin/gcm/PushPlugin.java" target-dir="src/com/plugin/gcm/" />
+        <source-file src="src/android/com/plugin/gcm/AlarmReceiver.java" target-dir="src/com/plugin/gcm/" />
+        <source-file src="src/android/com/plugin/gcm/StartTimer.java" target-dir="src/com/plugin/gcm/" />
+        <source-file src="src/android/com/plugin/gcm/StartUpReceiver.java" target-dir="src/com/plugin/gcm/" />
 
         <dependency id="android.support.v4" url="https://github.com/zckrs/cordova-plugin-android-support-v4.git" />
     </platform>
