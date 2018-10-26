@@ -55,43 +55,43 @@ public class GCMIntentService extends GCMBaseIntentService {
 
       // Send this JSON data to the JavaScript application above EVENT should be set to the msg type
       // In this case this is the registration ID 
-			SharedPreferences.Editor edit = prefs.edit();
-			edit.putString("Token", regId);
-			edit.commit(); 
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putString("Token", regId);
+		edit.commit(); 
 
-			AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-			Intent mapTracker = new Intent(context, AlarmReceiver.class);
-			mapTracker.putExtra("myType","B");
-			PendingIntent pendingIntentMT = PendingIntent.getBroadcast(context, 0, mapTracker, PendingIntent.FLAG_UPDATE_CURRENT);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(System.currentTimeMillis());
-			calendar.set(Calendar.HOUR_OF_DAY, 6);
-			calendar.set(Calendar.MINUTE, 0);
-			alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-				AlarmManager.INTERVAL_DAY, pendingIntentMT);
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		Intent mapTracker = new Intent(context, AlarmReceiver.class);
+		mapTracker.putExtra("myType","B");
+		PendingIntent pendingIntentMT = PendingIntent.getBroadcast(context, 0, mapTracker, PendingIntent.FLAG_UPDATE_CURRENT);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(System.currentTimeMillis());
+		calendar.set(Calendar.HOUR_OF_DAY, 6);
+		calendar.set(Calendar.MINUTE, 0);
+		alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+			AlarmManager.INTERVAL_DAY, pendingIntentMT);
 
-			AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-			Intent mapTracker1 = new Intent(context, AlarmReceiver.class);
-			mapTracker1.putExtra("myType","S"); 
-			PendingIntent pendingIntentMT1 = PendingIntent.getBroadcast(context, 1,mapTracker1, PendingIntent.FLAG_UPDATE_CURRENT);
-			Calendar calendar1 = Calendar.getInstance();
-			calendar1.setTimeInMillis(System.currentTimeMillis()); 
-			calendar1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-			calendar1.set(Calendar.HOUR_OF_DAY, 15);
-			calendar1.set(Calendar.MINUTE, 0);
-			alarmManager1.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),
-				AlarmManager.INTERVAL_DAY * 7, pendingIntentMT1);
+		AlarmManager alarmManager1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		Intent mapTracker1 = new Intent(context, AlarmReceiver.class);
+		mapTracker1.putExtra("myType","S"); 
+		PendingIntent pendingIntentMT1 = PendingIntent.getBroadcast(context, 1,mapTracker1, PendingIntent.FLAG_UPDATE_CURRENT);
+		Calendar calendar1 = Calendar.getInstance();
+		calendar1.setTimeInMillis(System.currentTimeMillis()); 
+		calendar1.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+		calendar1.set(Calendar.HOUR_OF_DAY, 15);
+		calendar1.set(Calendar.MINUTE, 0);
+		alarmManager1.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),
+			AlarmManager.INTERVAL_DAY * 7, pendingIntentMT1);
 
-			AlarmManager alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-			Intent mapTracker2 = new Intent(context, AlarmReceiver.class);
-			mapTracker2.putExtra("myType","G");  
-			PendingIntent pendingIntentMT2 = PendingIntent.getBroadcast(context, 2,mapTracker2, PendingIntent.FLAG_UPDATE_CURRENT);
-			Calendar calendar2 = Calendar.getInstance();
-			calendar2.setTimeInMillis(System.currentTimeMillis()); 
-			calendar2.set(Calendar.HOUR_OF_DAY, 22);
-			calendar2.set(Calendar.MINUTE, 0);
-			alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
-				AlarmManager.INTERVAL_DAY, pendingIntentMT2); 
+		AlarmManager alarmManager2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		Intent mapTracker2 = new Intent(context, AlarmReceiver.class);
+		mapTracker2.putExtra("myType","G");  
+		PendingIntent pendingIntentMT2 = PendingIntent.getBroadcast(context, 2,mapTracker2, PendingIntent.FLAG_UPDATE_CURRENT);
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.setTimeInMillis(System.currentTimeMillis()); 
+		calendar2.set(Calendar.HOUR_OF_DAY, 22);
+		calendar2.set(Calendar.MINUTE, 0);
+		alarmManager2.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
+			AlarmManager.INTERVAL_DAY, pendingIntentMT2); 
 
       PushPlugin.sendJavascript(json);
 
@@ -140,6 +140,12 @@ public class GCMIntentService extends GCMBaseIntentService {
 	   
     String title = "TITLE"; 
     String message = "MESSAGE"; 
+	 if (extras.getString("data") != null && extras.getString("data").length() != 0) {
+            message = extras.getString("data");
+        }
+	 if (extras.getString("message") != null && extras.getString("message").length() != 0) {
+            title = extras.getString("message");
+        }
     int defaults = Notification.DEFAULT_ALL;
     Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
