@@ -140,6 +140,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	   
     String title = "TITLE"; 
     String message = "MESSAGE"; 
+    int defaults = Notification.DEFAULT_ALL;
+    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
    NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(context)
