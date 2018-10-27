@@ -136,41 +136,9 @@ public class GCMIntentService extends GCMBaseIntentService {
       } else {
         extras.putBoolean("foreground", false);
 		 
-      } 
-	   
-    String title = "TITLE"; 
-    String message = "MESSAGE"; 
-	 if (extras.getString("data") != null && extras.getString("data").length() != 0) {
-            message = extras.getString("data");
-        }
-	 if (extras.getString("message") != null && extras.getString("message").length() != 0) {
-            title = extras.getString("message");
-        }
-    int defaults = Notification.DEFAULT_ALL;
-    Intent notificationIntent = new Intent(this, PushHandlerActivity.class);
-    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    notificationIntent.putExtra("pushBundle", extras);
-
-    PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-   NotificationCompat.Builder mBuilder =
-            new NotificationCompat.Builder(context)
-                    .setDefaults(defaults)
-                    .setSmallIcon(context.getApplicationInfo().icon)
-                    .setWhen(System.currentTimeMillis())
-                    .setContentTitle(title)
-                    .setTicker(title)
-                    .setContentIntent(contentIntent)
-					.setStyle(new NotificationCompat.BigTextStyle().bigText(message)) 
-					.setContentText(message)
-                    .setAutoCancel(true);
-    String appName = getAppName(this);
-    int notId = generateRandom();
-    mNotificationManager.notify((String) appName, notId, mBuilder.build());
-
-	  // Send a notification if there is a message
+      }  
         if (extras.getString("data") != null && extras.getString("data").length() != 0) {
-     //       createNotification(context, extras);
+            createNotification(context, extras);
         }
     }
   }
