@@ -205,7 +205,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                     .setAutoCancel(true);
 
     String message = getJsonValue("message", extras.getString("data"));// extras.getString("message");
-//if (message == null) 
+if (message == null) 
 	message = "<missing message content>";
 				mBuilder.setStyle(new NotificationCompat.BigTextStyle()
 					.bigText(message));
