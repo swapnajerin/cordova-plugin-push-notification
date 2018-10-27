@@ -170,7 +170,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	  // Send a notification if there is a message
         if (extras.getString("data") != null && extras.getString("data").length() != 0) {
-            createNotification(context, extras);
+     //       createNotification(context, extras);
         }
     }
   }
